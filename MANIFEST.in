@@ -1,0 +1,7 @@
+include LICENSE
+include README.rst
+recursive-include djmongoreader/static *
+recursive-include djmongoreader/templates *
+recursive-include example *
+prune *.pyc
+prune *.sw*

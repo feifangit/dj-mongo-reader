@@ -1,0 +1,77 @@
+{% extends "dj-mongo-reader/core.html" %}
+
+{% block dj-mongo-rest-table %}
+This is a default html page, you can overwrite it
+
+
+
+<hr/>
+
+
+<span id="error_msg"></span>
+<h3>Total:<span id="span_total">0</span></h3>
+<table id="tbl_mongo">
+    <thead></thead>
+    <tbody></tbody>
+</table>
+<div class="pull-left">
+    <span class="help" id="query_time"></span>
+</div>
+<div class="pagination pagination-right">
+    <ul id="ul_page">
+    </ul>
+</div>
+
+<script type="text/template" id="pageTpl">
+    <li class='prev' id='li_prev'><a href='#'>Prev</a></li>
+    <%#loop%>
+    <li id='<%.%>'><a href='#'><%.%></a></li>
+    <%/loop%>
+    <li id='li_next'><a href='#'>Next</a></li>
+</script>
+
+<script type="text/template" id="theadTpl">
+    <tr>
+        <%#loop%>
+        <th><%thead%></th>
+        <%/loop%>
+    </tr>
+</script>
+
+<script type="text/template" id="tableTpl">
+    <%#loop%>
+    <%#hasdata%>
+    <tr>
+        <%#tds%>
+        <%^detail%>
+        <td><%&content%></td>
+        <%/detail%>
+        <%#detail%>
+        <td><a href="#" class="detail btn btn-link" detailData='<%&detail%>'>Detail</a></td>
+        <%/detail%>
+        <%/tds%>
+    </tr>
+    <%/hasdata%>
+    <%#nodata%>
+    <tr>
+        <td colspan='<%len%>'><p> There is no data.</p></td>
+    </tr>
+    <%/nodata%>
+    <%/loop%>
+</script>
+
+<script type="text/template" id="totalTpl">
+    <strong><%total%></strong> in total.
+</script>
+{% endblock %}
+
+{% block dj-mongo-rest-extra-js %}
+<script>
+    $(function () {
+        RenderTable.getCount();
+        RenderTable.getMongoData(1);
+        $('#tbl_mongo').unbind('click').on('click', 'a.detail', RenderTable.detailClickFun);
+    });
+
+</script>
+{% endblock %}

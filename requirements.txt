@@ -1,0 +1,2 @@
+dj-mongo-reader
+django>1.6

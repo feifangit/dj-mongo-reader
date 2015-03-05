@@ -17,7 +17,7 @@ This is a default html page, you can overwrite it
 <div class="pull-left">
     <span class="help" id="query_time"></span>
 </div>
-<div class="pagination pagination-right">
+<div class="pagination pagination-right pull-right">
     <ul id="ul_page">
     </ul>
 </div>
@@ -52,11 +52,11 @@ This is a default html page, you can overwrite it
         <%/tds%>
     </tr>
     <%/hasdata%>
-    <%#nodata%>
+    <%^hasdata%>
     <tr>
         <td colspan='<%len%>'><p> There is no data.</p></td>
     </tr>
-    <%/nodata%>
+    <%/hasdata%>
     <%/loop%>
 </script>
 

@@ -9,24 +9,38 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.0.0/css/bootstrap-datetimepicker.min.css"
           rel="stylesheet">
     <style>
-        body{
-            padding-bottom: 40px;
+        h1 {
+            font-size: 2.8em;
+            font-weight: 600;
         }
-        ul.nav .btn-link{
+
+        body {
+            padding-bottom: 40px;
+            background: #ddd;
+        }
+
+        ul.nav .btn-link {
             border-left-width: 0;
             border-right-width: 0;
             border-bottom-width: 3px;
         }
+
         ul.nav .btn-link:hover {
             border-radius: 0;
             -webkit-border-radius: 0;
             -moz-border-radius: 0;
             -o-border-radius: 0;
-            border-bottom: 3px solid #0088cc;
+            border-bottom: 3px solid #3498db;
+            color: #3498db;
         }
-        ul.nav a{
+
+        ul.nav a {
             font-size: 1.3em;
             font-weight: 600;
+        }
+
+        .well {
+            background: #ffffff;
         }
     </style>
     {% block sample-style %}{% endblock %}
@@ -35,7 +49,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="page-header ">
+    <div class="row well page-header ">
         <h1 class="text-muted">dj-mongo-reader sample</h1>
     </div>
     <p>
@@ -46,12 +60,13 @@
                 data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
     </p>
 
-    <ul class="nav nav-pills">
+    <ul class="row well nav nav-pills">
         <li role="presentation"><a href="/" class="btn btn-link">Home</a></li>
         <li role="presentation"><a href="/query/" class="btn btn-link">Query</a></li>
     </ul>
-    <hr/>
-    {% block content %} {% endblock %}
+    <div class="row well">
+        {% block content %} {% endblock %}
+    </div>
 </div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
 {% block sample-js %}

@@ -11,6 +11,11 @@ logger = logging.getLogger('hydra')
 
 
 @jsonify
+def blank(request, *args, **kwargs):
+    return {}
+
+
+@jsonify
 def info(request):
     return {"client_clz": str(type(mongoReader))}
 

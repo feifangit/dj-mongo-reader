@@ -216,5 +216,5 @@ $(function () {
 
   var renderTable = new RenderTable();
   window.RenderTable = renderTable;
-  MongoReader.init('/mongo/' + db + '/' + col + '/', {skip: 0, limit: batch_size, batch_size: batch_size});
+  MongoReader.init(requestURL, {skip: 0, limit: batch_size, batch_size: batch_size});
 });

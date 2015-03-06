@@ -139,6 +139,7 @@
     var db = '{{db}}';
     var col = '{{col}}';
     var cmd = '{{cmd}}';
+    var requestURL = '{% url 'dj-mongo-reader-col' db col %}';
     var rowcount = {{rowcount|default:"50"}};
     var criteria = {{criteria|safe|default:"{}"}};
     var sort = {{sort|safe|default:"{}"}};

@@ -83,15 +83,6 @@
 
 {% block dj-mongo-rest-extra-js %}
 <script>
-    window.db = 'db1';
-    window.col = 'user';
-    window.cmd = '_find';
-    window.rowcount = 50;
-    window.criteria = {};
-    window.sort = {};
-    window.columns = 'name,gender,disable,lastlogin';
-    window.columns_trans = {};
-
     $(function () {
 
         $('#dp_lastlogin').datetimepicker({
@@ -125,7 +116,7 @@
         });
 
         window.gender_process = function (val) {
-            return (val ? 'FeMale' : 'Male');
+            return (val ? 'Female' : 'Male');
         };
 
         window.disable_process = function (val) {

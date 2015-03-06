@@ -7,7 +7,7 @@ from .utility import jsonify, perm_check
 from .models import mongoReader
 
 
-logger = logging.getLogger('hydra')
+logger = logging.getLogger('djmongoreader')
 
 
 @jsonify

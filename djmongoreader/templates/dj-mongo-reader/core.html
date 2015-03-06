@@ -134,15 +134,15 @@
 {% block dj-mongo-rest-extra-style %}
 {% endblock %}
 
-<script>
+<script type='text/javascript'>
     var db = '{{db}}';
     var col = '{{col}}';
     var cmd = '{{cmd}}';
-    var rowcount = '{{rowcount}}';
-    var criteria = '{{criteria|safe}}';
-    var sort = '{{sort|safe}}';
+    var rowcount = {{rowcount|default:"50"}};
+    var criteria = {{criteria|safe|default:"{}"}};
+    var sort = {{sort|safe|default:"{}"}};
     var columns = '{{columns}}';
-    var columns_trans = '{{columns_trans|safe}}';
+    var columns_trans = {{columns_trans|safe|default:"{}"}};
 </script>
 
 

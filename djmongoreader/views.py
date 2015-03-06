@@ -3,6 +3,7 @@ import traceback
 import time
 from bson import json_util
 
+from django.conf import settings
 from .utility import jsonify, perm_check
 from .models import mongoReader
 
@@ -17,7 +18,7 @@ def blank(request, *args, **kwargs):
 
 @jsonify
 def info(request):
-    return {"client_clz": str(type(mongoReader))}
+    return {"client_clz": str(type(mongoReader.mongoConn)) }
 
 
 @jsonify(options={"default": json_util.default})

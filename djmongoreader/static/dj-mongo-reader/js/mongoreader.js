@@ -87,7 +87,6 @@
    */
   var MongoReader = function () {
     this.requestURL = ''; // like '/mongo/:db/:collection/'
-    this.command = '';
     this.options = {
       skip: 0,
       batch_size:50,
@@ -100,10 +99,9 @@
    * @param requestURL -> requestURL like '/mongo/:db/:collection/'
    * @param opt -> some options like '{skip:10, limit:10}'
    */
-  MongoReader.prototype.init = function (requestURL,command, opt) {
+  MongoReader.prototype.init = function (requestURL, opt) {
     requestURL && (this.requestURL = requestURL);
     opt && (this.options = opt);
-    command && (this.command = command);
   };
 
   /**

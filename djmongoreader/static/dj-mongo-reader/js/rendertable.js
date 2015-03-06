@@ -5,7 +5,7 @@ $(function () {
   var $page = $('#ul_page');
   var $error = $('#error_msg');
   var CacheData = [];
-  var batch_size = 50;
+  var batch_size = rowcount || 50;
 
   var RenderTable = function () {
     Mustache.tags = ["<%", "%>"];
@@ -96,7 +96,7 @@ $(function () {
     $tbl.find('tbody').html(Mustache.render($('#tableTpl').html(), {
       loop: [{
         hasdata: _tplData,
-        len: renderTableObj.columnsArr.length+1
+        len: renderTableObj.columnsArr.length + 1
       }]
     }));
     $('#query_time').html(timespan + 's');
@@ -129,6 +129,7 @@ $(function () {
    * @param count
    */
   Pagination.pagination = function (count) {
+    $page.empty();
     if (count > 0 && count !== undefined) {
       pageCounts = Math.ceil(count / rowcount);
       Pagination.initPageNumber(pageCounts, 1);
@@ -215,5 +216,5 @@ $(function () {
 
   var renderTable = new RenderTable();
   window.RenderTable = renderTable;
-  MongoReader.init('/mongo/' + db + '/' + col + '/', cmd, {skip: 0, limit: batch_size, batch_size: batch_size});
+  MongoReader.init('/mongo/' + db + '/' + col + '/', {skip: 0, limit: batch_size, batch_size: batch_size});
 });

@@ -9,6 +9,13 @@ class MongoHandler(object):
     def __init__(self, conn):
         self.mongoConn = conn
 
+    def get_dbname_in_uri(self):
+        try:
+            return self.mongoConn.get_default_database().name
+        except:
+            pass
+        return None
+
     def _bson2json(self, s):
         return None if s is None else json.loads(s, object_hook=json_util.object_hook)
 

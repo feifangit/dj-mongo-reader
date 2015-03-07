@@ -86,5 +86,5 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
 
-MONGO_READER_SETTINGS = {'conn_str': 'mongodb://127.0.0.1:27017',
+MONGO_READER_SETTINGS = {'conn_str': os.getenv('MONGOLAB_URI', 'mongodb://127.0.0.1:27017/db1'),
                          'perm_check_func': 'sampleapp.security.my_mongocall_perm_check'}

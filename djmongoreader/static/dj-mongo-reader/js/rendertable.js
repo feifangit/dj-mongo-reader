@@ -144,6 +144,9 @@ $(function () {
     e.preventDefault();
     var currentPage = $(this).parent().attr('id');
 
+    if($(this).parent().hasClass('disabled')){
+      return;
+    }
     //special Prev or Next button
     var activePage = $('.pagination .active').text();
     if (currentPage === "li_prev") {

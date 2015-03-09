@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
     <h2>1 Database and collection</h2>
-    Suppose we have database <var>db1</var>, collelction <var>user_collection1</var>
+    <p>Suppose we have database <var>db1</var>, collelction <var>user_collection1</var>.</p>
 
     <h3>1.1 Data format</h3>
-    For each record, we have following fields:
+    <p>For each record, we have following fields:</p>
     <ul>
         <li><code>name</code>: @string</li>
         <li><code>gender</code>: @int, 1 stands for female, 0 for male</li>
@@ -14,11 +14,11 @@
 
 
     <h3>1.2 Import sample data to MongoDB</h3>
-    Download sample data here: <a href="{{ githubraw }}/data_100.json">data_100.json</a>
+    <p>Download sample data here: <a href="{{ githubraw }}/data_100.json">data_100.json</a></p>
     <pre>mongoimport -d db1 -c user_collection1 --file data_100.json</pre>
 
     <h2>2, Add application to your Django project</h2>
-    add <code>djmongoreader</code> to <code>INSTALLED_APPS</code> in <code>settings.py></code>
+    <p>add <code>djmongoreader</code> to <code>INSTALLED_APPS</code> in <code>settings.py</code></p>
     <pre>
 INSTALLED_APPS = (
     ...
@@ -27,20 +27,31 @@ INSTALLED_APPS = (
 
     <h2>3, Customize dj-mongo-reader</h2>
     <h3>3.1 Django setting</h3>
-    in <code>setting.py</code>
-    <pre>MONGO_READER_SETTINGS = {'conn_str': os.getenv('MONGOLAB_URI', 'mongodb://127.0.0.1:27017/db1'),
-                         'perm_check_func': 'sampleapp.security.my_mongocall_perm_check'}</pre>
-    two keys in dj-mongo-reader setting dict:
-    <ul>
-    <li><code>conn_str</code>: MongoDB connection URI (<a href="http://docs.mongodb.org/manual/reference/connection-string/">format</a>)
-    . If you provide a database name in URI, you can fetch it by following code later.
-        <pre>from djmongoreader.models import mongoReader
-mongoReader.get_dbname_in_uri()</pre>
-    </li>
-    <li><code>perm_check_func</code>: optional, permission check function for each query command.<br>
-        e.g.<br>
-        following permission check function make sure all mongo commands are limit to send to database <var>db1</var> and collections with name starts with<var>user</var>
+    <p>in <code>setting.py</code></p>
     <pre>
+        MONGO_READER_SETTINGS = {
+            'conn_str': os.getenv('MONGOLAB_URI', 'mongodb://127.0.0.1:27017/db1'),
+            'perm_check_func': 'sampleapp.security.my_mongocall_perm_check'
+        }
+    </pre>
+    <p>two keys in dj-mongo-reader setting dict:</p>
+    <ul>
+        <li>
+            <p>
+                <code>conn_str</code>: MongoDB connection URI (<a
+                    href="http://docs.mongodb.org/manual/reference/connection-string/">format</a>)
+                . If you provide a database name in URI, you can fetch it by following code later.
+            </p>
+            <pre>from djmongoreader.models import mongoReader mongoReader.get_dbname_in_uri()</pre>
+        </li>
+        <li>
+            <p><code>perm_check_func</code>: optional, permission check function for each query command.</p>
+
+            <p>e.g.</p>
+
+            <p>following permission check function make sure all mongo commands are limit to send to database
+                <var>db1</var> and collections with name starts with <var>user</var></p>
+            <pre>
 def my_mongocall_perm_check(req, db, col, cmd):
     if db != "db1":  # limit db to db1
         return False
@@ -48,22 +59,23 @@ def my_mongocall_perm_check(req, db, col, cmd):
     if not col.startswith("user"):  # limit collection to transaction_.*
         return False
 
-    return True</pre>
-
-    </li>
+    return True
+            </pre>
+        </li>
     </ul>
 
 
 
     <h3>3.2 Add result HTML slice to your application</h3>
-    In applicaiton's page <code>query.html</code>(<a href="{{ githuburl }}/templates/query.html">source code</a>), add
+    <p>In application's page <code>query.html</code>(<a href="{{ githuburl }}/templates/query.html">source code</a>),
+        add:</p>
     <pre>{% templatetag openblock %} include 'dj-mongo-reader/table.html' {% templatetag closeblock %}</pre>
 
     <h3>3.3 Customize the result page</h3>
-    Create <code>templates/dj-mongo-reader/table.html</code>(
-    <a href="{{ githuburl }}/templates/dj-mongo-reader/table.html">source code</a>),
-    modify the HTML elements in Django block<code>dj-mongo-rest-table</code>
-    remember to add <code>extends</code> statement
+    <p>Create <code>templates/dj-mongo-reader/table.html</code>(
+        <a href="{{ githuburl }}/templates/dj-mongo-reader/table.html">source code</a>),
+        modify the HTML elements in Django block<code>dj-mongo-rest-table</code>
+        remember to add <code>extends</code> statement.</p>
     <pre>{% templatetag openblock %} extends "dj-mongo-reader/core.html"{% templatetag closeblock %}</pre>
 
 
@@ -71,8 +83,8 @@ def my_mongocall_perm_check(req, db, col, cmd):
 
 
     <h3>3.4 Display options in backend</h3>
-    Code in <code>views.py</code>(<a href="{{ githuburl }}/sampleapp/views.py">source code</a>)to render the page
-    contains the form and result table
+    <p>Code in <code>views.py</code>(<a href="{{ githuburl }}/sampleapp/views.py">source code</a>)to render the page
+        contains the form and result table.</p>
     <pre>
 from djmongoreader.models import mongoReader
 def query(request):
@@ -89,37 +101,38 @@ def query(request):
     return render_to_response("query.html", args, context_instance=context)
     </pre>
     <div>
-        These parameters provide an initial query and rendering options
+        <p>These parameters provide an initial query and rendering options:</p>
         <ul>
             <li><code>db</code>: @string, database name in MongoDB.
-                if you had provided database name in connection URI, you can fill the value here by <code>mongoReader.get_dbname_in_uri()</code></li>
-            <li><code>col</code>: @string, collection name in MongoDB</li>
-            <li><code>rowcount</code>: @int, number of result in one page. optional, default: 50</li>
+                if you had provided database name in connection URI, you can fill the value here by <code>mongoReader.get_dbname_in_uri().</code>
+            </li>
+            <li><code>col</code>: @string, collection name in MongoDB.</li>
+            <li><code>rowcount</code>: @int, number of result in one page. optional, default: 50.</li>
             <li><code>sort</code>: @json_str, <a href="http://docs.mongodb.org/manual/reference/method/cursor.sort/">sort
                 statement</a> .optional, default: no sort.
             </li>
-            <li><code>columns</code>: @string, columns show in the result table. format: field names connected by comma
+            <li><code>columns</code>: @string, columns show in the result table. format: field names connected by comma.
             </li>
             <li><code>columns_trans</code>: @json_str, database field name to display name mapping. optional, default:
-                use database field name directly
+                use database field name directly.
             </li>
         </ul>
-        All these parameters passed to frontend will be assigned to same-named variables in Javascript, and can be
-        modified by demands.
+        <p>All these parameters passed to frontend will be assigned to same-named variables in Javascript, and can be
+            modified by demands.</p>
     </div>
 
 
 
     <h3>3.5 Display options in frontend</h3>
-    <h5>Data transformation</h5>
-    <div>
-        In <code>query.html</code>(<a href="{{ githuburl }}/templates/query.html">source code</a>) or its corresponding
+    <h4>Data transformation:</h4>
+    <p>
+        In <code>query.html</code>(<a href="{{ githuburl }}/templates/query.html">source code</a>) or its
+        corresponding
         Javascript file, for each field you want to make a
         transformation, write a js function named in format <code>&lt;field name&gt;_process</code>.
         The function accept only one parameter, the raw value read from MongoDB.
-
-    </div>
-    1, Show <var>Male</var> if raw data in field <code>gender</code> is 0, otherwise show <var>Female</var>
+    </p>
+    <p>1, Show <var>Male</var> if raw data in field <code>gender</code> is 0, otherwise show <var>Female</var></p>
 
     <pre>
 window.gender_process = function (val) {
@@ -127,7 +140,7 @@ window.gender_process = function (val) {
 };
     </pre>
 
-    2, Show different icon for field <code>disable</code> field.
+    <p>2, Show different icon for field <code>disable</code> field.</p>
     <pre>
 window.disable_process = function (val) {
     return (val ? '&lt;span class="glyphicon glyphicon-ok" aria-hidden="true">&lt;/span&gt;' : '&lt;span class="glyphicon glyphicon-remove" aria-hidden="true">&lt;/span&gt;');

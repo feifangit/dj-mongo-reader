@@ -212,7 +212,7 @@
                     if (+$temp !== -1) {
                         _sort.lastlogin = (+$temp ? 1 : -1);
                     }
-                    !$.isPlainObject(_sort) && (window.sort = _sort);
+                    !$.isEmptyObject(_sort) && (window.sort = _sort);
 
                     $('#dd_criteria').html('<pre>' + JSON.stringify(_criteria) + '</pre>');
                     $('#dd_sort').html('<pre>' + JSON.stringify(sort) + '</pre>');

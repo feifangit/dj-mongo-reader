@@ -47,7 +47,7 @@ $(function () {
     $.each(renderTableObj.columnsArr, function (key, value) {
       _tplData.push({thead: (renderTableObj.columns_trans.hasOwnProperty(value) ? renderTableObj.columns_trans[value] : value)});
     });
-    _tplData.push({thead: 'Detail'});
+    _tplData.push({thead: ''});
 
     $tbl.find('thead').html(Mustache.render($('#theadTpl').html(), {loop: _tplData}));
   };

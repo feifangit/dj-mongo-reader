@@ -19,7 +19,7 @@ setup(
     url='https://github.com/feifangit/dj-mongo-reader/',
     author='Fan Fei, Neil Chen',
     author_email='feifan.pub@gmail.com,neil.chen.nj@gmail.com',
-    install_requires=['pymongo',],
+    install_requires=['pymongo>=2.7',],
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',

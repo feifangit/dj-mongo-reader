@@ -27,7 +27,7 @@ $(function () {
       }
       $('#span_total').html(Mustache.render($('#totalTpl').html(), {
         total: function () {
-          return (returnedData.count > 1 ? returnedData.count + ' records' : returnedData.count + ' record');
+          return returnedData.count;
         }
       }));
       $('body').trigger('getCountEvent');

@@ -33,7 +33,7 @@ class MongoHandler(object):
         skip = int(args.get("skip", "0"))
         # batchsize = int(args.get("batch_size", "15"))
 
-        cursor = self.mongoConn[db][col].find(spec=criteria, fields=fields, limit=limit, skip=skip)
+        cursor = self.mongoConn[db][col].find(criteria, fields, limit=limit, skip=skip)
 
         sort = self._bson2json(args.get("sort", "{}"))
         if sort:

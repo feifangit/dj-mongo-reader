@@ -1,0 +1,4 @@
+0.94
+add pymongo 3.x support
+
+

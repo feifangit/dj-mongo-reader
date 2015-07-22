@@ -120,6 +120,14 @@ $(function () {
     alert(_detailArr.join(''));
   };
 
+  /**
+   * export to csv
+   * @param projection: csv columns header
+   */
+  RenderTable.prototype.exportFun = function (projection) {
+    MongoReader.export(criteria, sort, (projection || this.columns_trans));
+  };
+
 
   var Pagination = function () {
   };

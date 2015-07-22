@@ -124,6 +124,22 @@
   };
 
   /**
+   * get mongodb data with criteria and sort
+   * @param criteria -> json object like "{id:'1'}"
+   * @param sort -> json object like '{serverTime:-1}'
+   * @param callback
+   */
+  MongoReader.prototype.export = function (criteria, sort, projection) {
+    window.location = this.requestURL +
+      'exportcsv/?criteria=' +
+      jsonToString(criteria) +
+      '&sort=' +
+      jsonToString(sort) +
+      '&projection=' + jsonToString(projection);
+
+  };
+
+  /**
    * send some others command to mongoreader server,this is a Low-Level function.
    * @param type -> http method type
    * @param url  -> request url

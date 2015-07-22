@@ -4,7 +4,7 @@
 
     <span id="error_msg"></span>
     <h4 class="pull-left"><span id="span_total"></span></h4>
-    <div id="div_selectRowCount" class="pull-right col-sm-4 hide ">
+    <div id="div_selectRowCount" class="pull-right col-sm-6 hide ">
         <span class="pull-left padding-top-6">Display </span>
 
         <div class="pull-left col-sm-4">
@@ -15,7 +15,9 @@
                 <option value="100">100</option>
             </select>
         </div>
-        <span class="pull-left  padding-top-6"> records per page .</span></div>
+        <span class="pull-left padding-top-6"> records per page .</span>
+        <button id="btn_export" class="pull-right padding-top-6 btn btn-info">Export csv</button>
+    </div>
     <table id="tbl_mongo">
         <thead></thead>
         <tbody></tbody>
@@ -78,6 +80,10 @@
             <!--RenderTable.getCount();-->
             <!--RenderTable.getMongoData(1);-->
             $('#tbl_mongo').unbind('click').on('click', 'a.detail', RenderTable.detailClickFun);
+            $('#btn_export').bind('click', function(e){
+                e.preventDefault();
+                RenderTable.exportFun();
+            })
         });
     </script>
 {% endblock %}

@@ -63,6 +63,7 @@ def my_mongocall_perm_check(req, db, col, cmd):
             </pre>
         </li>
     </ul>
+    The cmd paramter in perm check function may be <code>find</code>, <code>status</code>, <code>count</code>, <code>exportcsv</code>
 
 
 
@@ -146,5 +147,32 @@ window.disable_process = function (val) {
     return (val ? '&lt;span class="glyphicon glyphicon-ok" aria-hidden="true">&lt;/span&gt;' : '&lt;span class="glyphicon glyphicon-remove" aria-hidden="true">&lt;/span&gt;');
 };
     </pre>
+
+    <h3>4 Export records to CSV file</h3>
+    <div>URL endpoint: <code>/&lt;db&gt;/&lt;collection&gt;/exportcsv/</code></div>
+    <div>Supported HTTP GET parameters:
+        <ul>
+            <li><code>projection</code>, @dict, a dictionary of MongoDB field to the display name in CSV</li>
+            <li><code>criteria</code>: @json_str, optional, <a href="http://docs.mongodb.org/manual/reference/method/db.collection.find/">find statement in MongoDB</a></li>
+            <li><code>sort</code>: @json_str, optional, <a href="http://docs.mongodb.org/manual/reference/method/cursor.sort/">sort statement in MongoDB</a></li>
+        </ul>
+    </div>
+    <div>e.g. <pre>/db1/dbcollection_1/exportcsv/?criteria={"gender":0}&sort={"name":-1}&projection={"name":"student name", "gender":"sex","lastlogin":"last login"}</pre>
+    response
+    <pre>
+sex,student name,last login
+0,user 39,2011-11-21 10:57:15.166000
+0,user 41,2011-09-22 10:57:15.166000
+0,user 43,2011-07-24 10:57:15.166000
+0,user 45,2011-05-25 10:57:15.166000
+0,user 47,2011-03-26 10:57:15.166000
+0,user 49,2011-01-25 10:57:15.166000
+0,user 51,2010-11-26 10:57:15.166000
+0,user 53,2010-09-27 10:57:15.166000
+0,user 55,2010-07-29 10:57:15.166000
+...
+    </pre>
+    </div>
+
 
 {% endblock %}

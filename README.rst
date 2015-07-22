@@ -19,11 +19,10 @@ Features
 5. Pick up some keys of the record to fill the table, leave complete record in **detail dialog**
 6. Assign **display names** for keys in MongoDB record
 7. **value transformation**, you can provide Javascript callback functions to process raw value data from MongoDB to a proper text for displaying
+8. export MongoDB data to CSV file (use it carefully for larage amount of records)
 
-
-
-DEMO
---------
+DEMO and Document
+------------------
 A Django application runs on heroku.
 
 - Functionality: A query form and result table included.

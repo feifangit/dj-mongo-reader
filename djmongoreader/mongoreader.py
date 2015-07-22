@@ -16,7 +16,8 @@ class MongoHandler(object):
             pass
         return None
 
-    def _bson2json(self, s):
+    @staticmethod
+    def _bson2json(s):
         return None if s is None else json.loads(s, object_hook=json_util.object_hook)
 
     def cmd_status(self, db, col, args):

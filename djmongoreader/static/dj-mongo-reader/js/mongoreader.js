@@ -132,10 +132,10 @@
   MongoReader.prototype.export = function (criteria, sort, projection) {
     window.location = this.requestURL +
       'exportcsv/?criteria=' +
-      jsonToString(criteria) +
+      encodeURIComponent(jsonToString(criteria)) +
       '&sort=' +
-      jsonToString(sort) +
-      '&projection=' + jsonToString(projection);
+      encodeURIComponent(jsonToString(sort)) +
+      '&projection=' + encodeURIComponent(jsonToString(projection));
 
   };
 

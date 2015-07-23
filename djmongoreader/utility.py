@@ -1,4 +1,5 @@
 import json
+import csv
 
 from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
@@ -33,3 +34,31 @@ def perm_check(function, perm_check_func=_perm_check_func, raise_exception=False
 
         return wrapped
     return real_decorator(function)
+
+
+class EnhancedDictWriter(csv.DictWriter):
+    def __init__(self, f, fieldsMapping):
+        self.fieldsMapping = fieldsMapping
+        csv.DictWriter.__init__(self,
+                                f,
+                                fieldsMapping.keys(),
+                                restval="",
+                                extrasaction="ignore")
+    def writeheader(self):
+        self.writerow(self.fieldsMapping)
+
+    def _to_utf8(self, obj):
+        if hasattr(obj, "encode"):
+            func = getattr(obj, "encode")
+            if callable(func):
+                return obj.encode("utf-8")
+        return obj
+
+
+    def _dict_to_list(self, rowdict):
+        if self.extrasaction == "raise":
+            wrong_fields = [k for k in rowdict if k not in self.fieldnames]
+            if wrong_fields:
+                raise ValueError("dict contains fields not in fieldnames: " +
+                                 ", ".join(wrong_fields))
+        return [self._to_utf8(rowdict.get(key, self.restval)) for key in self.fieldnames]

@@ -6,7 +6,7 @@ from bson import json_util
 from pymongo import ASCENDING
 from django.conf import settings
 from django.http import HttpResponse, StreamingHttpResponse
-from .utility import jsonify, perm_check
+from .utility import jsonify, perm_check, EnhancedDictWriter
 from .models import mongoReader
 
 logger = logging.getLogger('djmongoreader')
@@ -67,7 +67,7 @@ def exportcsv(request, db, col, cmd):
         cursor.sort(pymongoSort)
 
     pseudo_buffer = Echo()
-    writer = csv.DictWriter(pseudo_buffer, fieldnames=fields.keys())
+    writer = EnhancedDictWriter(pseudo_buffer, fields)
 
     def stream():
         yield writer.writerow(fields)

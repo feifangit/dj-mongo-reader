@@ -4,3 +4,5 @@ add pymongo 3.x support
 0.95
 new feature: export records to CSV file
 
+0.96
+bug fix in CSV exporting

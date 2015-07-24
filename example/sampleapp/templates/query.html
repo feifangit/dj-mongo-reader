@@ -233,7 +233,7 @@
                 };
 
                 window.lastlogin_process = function (time) {
-                    return moment.utc((typeof time === 'string' ? time : time.$date)).format('YYYY-MM-DD');
+                    return (time ? moment.utc((typeof time === 'string' ? time : time.$date)).format('YYYY-MM-DD') : "");
                 };
 
                 function detailClickFun(e) {

@@ -50,6 +50,7 @@ def exportcsv(request, db, col, cmd):
     args = request.GET
     criteria = mongoReader._bson2json(args.get("criteria", "{}"))
     fields = mongoReader._bson2json(args.get("projection", "{}"))
+    exportfilename = args.get("exportfn", "export.csv")
 
     if not fields:
         return HttpResponse("parameter fields must be specified")
@@ -76,5 +77,5 @@ def exportcsv(request, db, col, cmd):
 
     response = StreamingHttpResponse(stream(), content_type="text/csv")
 
-    response['Content-Disposition'] = 'attachment; filename="export.csv"'
+    response['Content-Disposition'] = 'attachment; filename="%s"' % exportfilename
     return response

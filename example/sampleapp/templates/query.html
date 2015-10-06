@@ -239,10 +239,9 @@
                 function detailClickFun(e) {
                     var _detailData4tpe = [], _detailData;
                     e.preventDefault();
-                    _detailData = $(this).attr('detaildata');
+                    _detailData = RenderTable.detailData[$(this).attr('data-id')];
 
                     if (_detailData) {
-                        _detailData = $.parseJSON(_detailData);
                         $.each(_detailData, function (k1, v1) {
                             var tr = {};
                             tr.thead = k1;

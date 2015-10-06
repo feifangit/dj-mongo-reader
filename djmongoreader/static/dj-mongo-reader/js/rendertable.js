@@ -15,6 +15,7 @@ $(function () {
     Mustache.parse($('#totalTpl').html());
     this.columnsArr = columns.split(',');
     this.columns_trans = (typeof columns_trans === 'string' ? $.parseJSON(columns_trans) : columns_trans);
+    this.detailData = {};
   };
 
   RenderTable.prototype.getCount = function () {
@@ -80,7 +81,15 @@ $(function () {
   var analyzeData = function (data, timespan, renderTableObj) {
     var _tplData = [];
     $.each(data, function (idx, obj) {
-      var _tds = [];
+      var _tds = [],_id;
+      if (typeof obj._id === 'object'){
+        _id = obj._id.$oid;
+      } else {
+        _id = obj._id;
+      }
+
+      renderTableObj.detailData[_id] = obj;
+
       $.each(renderTableObj.columnsArr, function (k, v) {
         var _tmp = obj[v];
         if (window.hasOwnProperty(v + '_process')) {
@@ -89,7 +98,7 @@ $(function () {
         }
         _tds.push({content: _tmp});
       });
-      _tds.push({detail: JSON.stringify(obj)});
+      _tds.push({detail: _id});
       _tplData.push({tds: _tds});
     });
     renderTableObj.renderThead();
@@ -108,7 +117,7 @@ $(function () {
    */
   RenderTable.prototype.detailClickFun = function (e) {
     e.preventDefault();
-    var detailData = $.parseJSON($(this).attr('detailData'));
+    var detailData = renderTable.detailData[$(this).attr('data-id')];
     var _detailArr = [];
     $.each(detailData, function (k, v) {
       if (window.hasOwnProperty(k + '_process')) {

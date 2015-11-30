@@ -9,3 +9,6 @@ bug fix in CSV exporting
 
 0.97
 able to specify generated CSV file
+
+0.98
+bug fix

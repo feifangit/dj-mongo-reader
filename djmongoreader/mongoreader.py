@@ -28,9 +28,13 @@ class MongoHandler(object):
         return {"count": self.mongoConn[db][col].find(criteria).count()}
 
     def cmd_find(self, db, col, args):
+        if "limit" not in args:
+             return {"error":"Parameter Error"}
         criteria = self._bson2json(args.get("criteria", "{}"))
         fields = self._bson2json(args.get("fields", None))
         limit = int(args.get("limit", "0"))
+        if limit > 100:
+             return {"error":"Parameter Error"}
         skip = int(args.get("skip", "0"))
         # batchsize = int(args.get("batch_size", "15"))
 

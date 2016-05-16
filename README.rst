@@ -7,7 +7,7 @@ Installation
 - Install from PyPi ``pip install dj-mongo-reader`` 
 - Install from source code
 
- - download code ``git clone https://github.com/feifangit/dj-mongo-reader.git``
+ - download code ``git clone https://github.com/tofu0913/dj-mongo-reader.git``
  - run ``<setup.py>`` from ``dj-mongo-reader`` folder ``python setup.py install``
 
 Features
@@ -45,3 +45,4 @@ Credits
 
 - Fan Fei feifan.pub@gmail.com backend
 - Neil Chen neil.chen.nj@gmail.com frontend 
+- Cliff Chen tofu0913@gmail.com fork and maintenance 

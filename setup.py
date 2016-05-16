@@ -9,16 +9,16 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='dj-mongo-reader',
+    name='dj-mongo-reader2',
     version=__version__,
     packages=['djmongoreader'],
     include_package_data=True,
     license='GPL v2.0',
     description='A Django app can be used to query and render MongoDB data',
     long_description=README,
-    url='https://github.com/feifangit/dj-mongo-reader/',
-    author='Fan Fei, Neil Chen',
-    author_email='feifan.pub@gmail.com,neil.chen.nj@gmail.com',
+    url='https://github.com/tofu0913/dj-mongo-reader/',
+    author='Fan Fei, Neil Chen, Cliff Chen',
+    author_email='tofu0913@gmail.com',
     install_requires=['pymongo>=2.7',],
     classifiers=[
         'Environment :: Web Environment',

@@ -15,3 +15,6 @@ bug fix
 
 0.99
 force limit while doing _find
+
+1.0.0
+support edit table

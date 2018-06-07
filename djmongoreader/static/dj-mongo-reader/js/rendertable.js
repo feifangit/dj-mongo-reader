@@ -78,6 +78,18 @@ $(function () {
     });
   };
 
+  /**
+   * get mongodb Data from mongo reader
+   */
+  RenderTable.prototype.updateTable = function (data) {
+      var renderTableObj = this;
+      $.each(data, function(k,v) {
+          if ((k != 'uuid' || k!='productid') && k in renderTableObj.detailData[data['uuid']]) {
+            renderTableObj.detailData[data['uuid']][k] = v;
+          }
+        });
+  };
+
   var analyzeData = function (data, timespan, renderTableObj) {
     var _tplData = [];
     $.each(data, function (idx, obj) {
@@ -98,7 +110,19 @@ $(function () {
         }
         _tds.push({content: _tmp});
       });
-      _tds.push({detail: _id});
+      var found = false;
+      if (typeof editable != 'undefined') {
+          $.each(editable, function(k){
+                if (renderTableObj.detailData[_id].hasOwnProperty(editable[k].keyTrans)) {
+                    found = true;
+                    return false;
+                }
+            });
+            }
+      if (found)
+          _tds.push({detail: _id,editable: 1});
+      else
+        _tds.push({detail: _id});
       _tplData.push({tds: _tds});
     });
     renderTableObj.renderThead();

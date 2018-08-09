@@ -26,6 +26,7 @@ $(function () {
       } else {
         $error.empty();
       }
+      RenderTable.prototype.totalCount = returnedData.count;
       $('#span_total').html(Mustache.render($('#totalTpl').html(), {
         total: function () {
           return returnedData.count;

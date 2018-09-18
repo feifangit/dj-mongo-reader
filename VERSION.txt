@@ -21,3 +21,6 @@ support edit table
 
 1.0.1
 add total count variable
+
+1.1.0
+support replica set

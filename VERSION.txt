@@ -24,3 +24,6 @@ add total count variable
 
 1.1.0
 support replica set
+
+1.2.0
+support fixed sort order

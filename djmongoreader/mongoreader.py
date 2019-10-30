@@ -1,7 +1,7 @@
 import json
 from pymongo import ASCENDING, DESCENDING
 from bson import json_util
-
+from collections import OrderedDict
 
 class MongoHandler(object):
     SORT_TAG = {-1: DESCENDING, 1: ASCENDING}
@@ -17,7 +17,9 @@ class MongoHandler(object):
         return None
 
     @staticmethod
-    def _bson2json(s):
+    def _bson2json(s, fixedorder=None):
+        if fixedorder:
+            return None if s is None else json.loads(s, object_hook=json_util.object_hook,object_pairs_hook=OrderedDict)
         return None if s is None else json.loads(s, object_hook=json_util.object_hook)
 
     def cmd_status(self, db, col, args):
@@ -40,7 +42,7 @@ class MongoHandler(object):
 
         cursor = self.mongoConn[db][col].find(criteria, fields, limit=limit, skip=skip)
 
-        sort = self._bson2json(args.get("sort", "{}"))
+        sort = self._bson2json(args.get("sort", "{}"), 'fixedorder' in args.get("sort", "{}"))
         if sort:
             pymongoSort = [(k, MongoHandler.SORT_TAG.get(v, ASCENDING)) for k, v in sort.items()]
             cursor.sort(pymongoSort)

@@ -1,4 +1,4 @@
-django==1.6
+django==2.2.24
 gunicorn==19
 dj-mongo-reader
 whitenoise

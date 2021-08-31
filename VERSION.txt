@@ -27,3 +27,6 @@ support replica set
 
 1.2.0
 support fixed sort order
+
+2.0.0
+support django 1.11

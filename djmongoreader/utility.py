@@ -4,10 +4,10 @@ import csv
 from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
-from django.utils.module_loading import import_by_path
+from django.utils.module_loading import import_string
 
 _perm_check_func_name = settings.MONGO_READER_SETTINGS.get("perm_check_func")
-_perm_check_func = import_by_path(_perm_check_func_name) if _perm_check_func_name else None
+_perm_check_func = import_string(_perm_check_func_name) if _perm_check_func_name else None
 
 
 def jsonify(function=None, options={}):

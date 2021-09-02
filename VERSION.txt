@@ -12,3 +12,21 @@ able to specify generated CSV file
 
 0.98
 bug fix
+
+0.99
+force limit while doing _find
+
+1.0.0
+support edit table
+
+1.0.1
+add total count variable
+
+1.1.0
+support replica set
+
+1.2.0
+support fixed sort order
+
+2.0.0
+support django 1.11

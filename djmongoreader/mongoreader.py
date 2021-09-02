@@ -1,7 +1,7 @@
 import json
 from pymongo import ASCENDING, DESCENDING
 from bson import json_util
-
+from collections import OrderedDict
 
 class MongoHandler(object):
     SORT_TAG = {-1: DESCENDING, 1: ASCENDING}
@@ -17,7 +17,9 @@ class MongoHandler(object):
         return None
 
     @staticmethod
-    def _bson2json(s):
+    def _bson2json(s, fixedorder=None):
+        if fixedorder:
+            return None if s is None else json.loads(s, object_hook=json_util.object_hook,object_pairs_hook=OrderedDict)
         return None if s is None else json.loads(s, object_hook=json_util.object_hook)
 
     def cmd_status(self, db, col, args):
@@ -28,15 +30,19 @@ class MongoHandler(object):
         return {"count": self.mongoConn[db][col].find(criteria).count()}
 
     def cmd_find(self, db, col, args):
+        if "limit" not in args:
+             return {"error":"Parameter Error"}
         criteria = self._bson2json(args.get("criteria", "{}"))
         fields = self._bson2json(args.get("fields", None))
         limit = int(args.get("limit", "0"))
+        if limit > 100:
+             return {"error":"Parameter Error"}
         skip = int(args.get("skip", "0"))
         # batchsize = int(args.get("batch_size", "15"))
 
         cursor = self.mongoConn[db][col].find(criteria, fields, limit=limit, skip=skip)
 
-        sort = self._bson2json(args.get("sort", "{}"))
+        sort = self._bson2json(args.get("sort", "{}"), 'fixedorder' in args.get("sort", "{}"))
         if sort:
             pymongoSort = [(k, MongoHandler.SORT_TAG.get(v, ASCENDING)) for k, v in sort.items()]
             cursor.sort(pymongoSort)
